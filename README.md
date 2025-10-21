@@ -1,59 +1,213 @@
-# Health-Insurance-Claim-System
-Health Insurance Claim System
-Overview
-Planned to design a real world health insurance claims database which involves information pertaining to the members, providers, claims, address, claim status, claim payment and coverage, and generated our own dataset which had 7 tables (described in the further sections). We formulated a relational database using MySQL Workbench and populated all 7 tables with approximately 100 rows each table.
+<h1 align="center">🏥 Health Insurance Claim System</h1>
 
-Project Goal
-Main goal is to extract reports for the healthcare insurance officials which can enable them to analyse and present insights to the mangeorial officials, and to understand the entire Database Design process from scratch resulting into a development of a real world database and data visualization system for the health insurance companies.
+<p align="center">
+  <b>Relational Database Design • SQL • MySQL Workbench • Healthcare Analytics</b><br>
+  Designing and implementing a real-world Health Insurance Claims Database for analytics and reporting.
+</p>
 
-Logical Database Design (Entity Relationship Diagram)
-<img width="1091" height="580" alt="image" src="https://github.com/user-attachments/assets/6290ed49-7d1d-4ead-8e1a-50d33d02a93c" />
+---
+
+## 📘 Overview
+
+This project focuses on building a **real-world health insurance claims database** that stores information about members, providers, claims, addresses, claim statuses, claim payments, and coverage.  
+We designed and implemented a **relational database using MySQL Workbench**, generating seven interrelated tables, each populated with approximately **100 rows** of realistic healthcare data.
+
+---
+
+## 🎯 Project Goal
+
+The main goal of this project is to:
+- Enable **healthcare insurance officials** to generate analytical reports and insights.
+- Build a **normalized, efficient relational database** for claim management and performance reporting.
+- Understand the **end-to-end database design process**, from conceptual ER modeling to SQL implementation and optimization.
+- Create a foundation for **data visualization and business intelligence** use cases in healthcare insurance.
+
+---
+
+## 🧩 Entity Relationship (ER) Diagram
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6290ed49-7d1d-4ead-8e1a-50d33d02a93c" width="900" alt="ER Diagram" />
+</p>
+
+---
+
+## 🗄️ Database Schema
+
+📂 Database Structure — Health Insurance Claim System
+
+├── Address
+│ ├── address_id (INT, PK)
+│ ├── street_address (VARCHAR)
+│ ├── apartment_no (INT)
+│ ├── city, county, country (VARCHAR)
+│ └── zipcode (INT)
+
+├── Provider
+│ ├── provider_id (INT, PK)
+│ ├── provider_first_name, provider_last_name (VARCHAR)
+│ ├── degree, network, practice_name (VARCHAR)
+│ ├── claim_id (INT, FK → Claim)
+│ ├── address_id (INT, FK → Address)
+│ └── gender (VARCHAR)
+
+├── Claim_Payment
+│ ├── claim_payment_id (INT, PK)
+│ ├── billed_amount, approved_amount, copay_amount (VARCHAR)
+│ ├── coinsurance_amount, deductible_amount, net_payment (VARCHAR)
+│ └── claim_id (INT, FK → Claim)
+
+├── Coverage
+│ ├── coverage_id (INT, PK)
+│ ├── member_id (INT, FK → Member)
+│ ├── coverage_name (VARCHAR)
+│ ├── effective_date, term_date (DATE)
+
+├── Member
+│ ├── member_id (INT, PK)
+│ ├── member_first_name, member_last_name (VARCHAR)
+│ ├── address_id (INT, FK → Address)
+│ ├── gender (VARCHAR)
+│ ├── member_dob (DATE)
+│ ├── claim_id (INT, FK → Claim)
+│ └── coverage_id (INT, FK → Coverage)
+
+├── Claim
+│ ├── claim_id (INT, PK)
+│ ├── status_id (INT, FK → Status)
+│ ├── date_of_service, received_date (DATE)
+│ └── add_by (VARCHAR)
+
+└── Status
+├── status_id (INT, PK)
+├── claim_status (VARCHAR)
+└── type (VARCHAR)
 
 
+---
 
-Data Visualizations (Exploratory Data Analysis)
-<img width="924" height="458" alt="image" src="https://github.com/user-attachments/assets/35b28339-d6d1-48e5-a0fe-7b30bc3efa15" />
-<img width="699" height="412" alt="image" src="https://github.com/user-attachments/assets/7170fc46-874f-4289-8e5a-6fe31908636c" />
+## 📊 Data Visualizations (Exploratory Data Analysis)
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/35b28339-d6d1-48e5-a0fe-7b30bc3efa15" width="750" alt="EDA Visualization 1" />
+</p>
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/7170fc46-874f-4289-8e5a-6fe31908636c" width="700" alt="EDA Visualization 2" />
+</p>
 
-Queries to get the results
-1) Reporting top 20 members along with provider details, billed amount and approved amount associated and having approved_amount greater than $2200 - Virtual Table/View
-Use health_insurance_claims_database;
+---
 
-create view top_20_claim_approved_customers as (select m.member_first_name, m.member_last_name, s.claim_status, p.provider_first_name, p.provider_last_name, p.network, p.practice_name, cp.billed_amount, cp.approved_amount, cp.net_payment from ((((member m inner join claim c on m.claim_id = c.claim_id) inner join status s on s.status_id = c.status_id) inner join provider p on p.claim_id = m.claim_id) inner join claim_payment cp on cp.claim_id = c.claim_id) where cp.approved_amount > 2200 order by cp.approved_amount desc limit 20);
+## 🧾 SQL Queries and Reports
 
-select * from top_20_claim_approved_customers;
+### 1️⃣ Top 20 Members by Approved Claim Amount (View)
+Reports top 20 members with provider details and approved amounts greater than $2200.
 
-2) Reporting distinct members (member demographic information) who have their claims in progress - Stored Procedure
-use health_insurance_claims_database;
+```sql
+USE health_insurance_claims_database;
+
+CREATE VIEW top_20_claim_approved_customers AS
+SELECT 
+    m.member_first_name,
+    m.member_last_name,
+    s.claim_status,
+    p.provider_first_name,
+    p.provider_last_name,
+    p.network,
+    p.practice_name,
+    cp.billed_amount,
+    cp.approved_amount,
+    cp.net_payment
+FROM ((((member m
+INNER JOIN claim c ON m.claim_id = c.claim_id)
+INNER JOIN status s ON s.status_id = c.status_id)
+INNER JOIN provider p ON p.claim_id = m.claim_id)
+INNER JOIN claim_payment cp ON cp.claim_id = c.claim_id)
+WHERE cp.approved_amount > 2200
+ORDER BY cp.approved_amount DESC
+LIMIT 20;
+
+SELECT * FROM top_20_claim_approved_customers;
+
+2️⃣ Members with Claims in Progress (Stored Procedure)
+
+Lists all members whose claim status matches the provided status input.
+
+USE health_insurance_claims_database;
 
 DELIMITER //
 
-CREATE PROCEDURE get_member_claim_status_data( IN claim_status_in VARCHAR(50) )
-
-BEGIN select m.member_first_name, m.member_last_name, m.member_dob, m.gender, m.claim_id, s.claim_status, s.type from ((member m inner join claim c on m.claim_id = c.claim_id) inner join status s on s.status_id = c.status_id) where s.claim_status = claim_status_in order by m.member_first_name;
-
+CREATE PROCEDURE get_member_claim_status_data(IN claim_status_in VARCHAR(50))
+BEGIN
+  SELECT 
+    m.member_first_name,
+    m.member_last_name,
+    m.member_dob,
+    m.gender,
+    m.claim_id,
+    s.claim_status,
+    s.type
+  FROM ((member m
+  INNER JOIN claim c ON m.claim_id = c.claim_id)
+  INNER JOIN status s ON s.status_id = c.status_id)
+  WHERE s.claim_status = claim_status_in
+  ORDER BY m.member_first_name;
 END //
 
 DELIMITER ;
 
 CALL get_member_claim_status_data('paid');
 
-3) Finding member subscribed to a coverage plan having address ID between 2000 to 5000 - Indexing
-use health_insurance_claims_database;
+3️⃣ Members by Address Range (Indexing)
 
-select distinct m.member_first_name, m.member_last_name, cp.coverage_name, m.address_id from (coverage cp inner join member m on m.member_id = cp.member_id) where m.address_id between 2000 and 5000;
+Fetches members with coverage plans and address IDs between 2000 and 5000.
 
-create index member_index on member(address_id);
+USE health_insurance_claims_database;
 
-select distinct m.member_first_name, m.member_last_name, cp.coverage_name, m.address_id from (coverage cp inner join member m on m.member_id = cp.member_id) where m.address_id between 2000 and 5000;
+SELECT DISTINCT 
+    m.member_first_name,
+    m.member_last_name,
+    cp.coverage_name,
+    m.address_id
+FROM coverage cp
+INNER JOIN member m ON m.member_id = cp.member_id
+WHERE m.address_id BETWEEN 2000 AND 5000;
 
-drop index member_index on member;
+CREATE INDEX member_index ON member(address_id);
 
-Additional topics covered
-Performance of the queries is improved using below operations,
+SELECT DISTINCT 
+    m.member_first_name,
+    m.member_last_name,
+    cp.coverage_name,
+    m.address_id
+FROM coverage cp
+INNER JOIN member m ON m.member_id = cp.member_id
+WHERE m.address_id BETWEEN 2000 AND 5000;
 
-Creating Views for Queries with Multiple Join Operations
-Stored procedures for adding a centralized business logic
-Use of Indexes for optimizing table traversals
+DROP INDEX member_index ON member;
+
+⚡ Performance Optimization Techniques
+
+This project applies several SQL optimization techniques to improve query performance:
+
+✅ Views: Simplify complex multi-join queries
+
+✅ Stored Procedures: Centralize business logic and improve reusability
+
+✅ Indexes: Speed up table lookups and filtering operations
+
+🧠 Learnings & Takeaways
+
+Deep understanding of healthcare insurance data relationships
+
+Proficiency in MySQL Workbench schema design and normalization (3NF)
+
+Hands-on experience with views, indexing, and stored procedures
+
+Ability to generate business insights from healthcare claims data
+
+🧑‍💻 Author
+Vigneshwaran Palanisamy
+Data Analyst | SQL Developer | Healthcare Data Enthusiast
+
+<p align="center"> ⭐ If you found this project helpful, consider giving it a star! ⭐ </p> ```
