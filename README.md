@@ -186,6 +186,7 @@ WHERE m.address_id BETWEEN 2000 AND 5000;
 
 DROP INDEX member_index ON member;
 
+
 ## ⚡ Performance Optimization Techniques
 
 This project applies several SQL optimization techniques to improve query performance:
@@ -195,6 +196,7 @@ This project applies several SQL optimization techniques to improve query perfor
 ✅ Stored Procedures: Centralize business logic and improve reusability
 
 ✅ Indexes: Speed up table lookups and filtering operations
+
 
 ## 🧠 Learnings & Takeaways
 
@@ -206,8 +208,9 @@ Hands-on experience with views, indexing, and stored procedures
 
 Ability to generate business insights from healthcare claims data
 
+
 ## 🧑‍💻 Author
 Vigneshwaran Palanisamy
 Data Analyst | SQL Developer | Healthcare Data Enthusiast
 
-<p align="center"> ⭐ If you found this project helpful, consider giving it a star! ⭐ </p> ```
+<p align="center"> ⭐ If you found this project helpful, consider giving it a star! ⭐ </p> 
