@@ -7,9 +7,14 @@ Project Goal
 Main goal is to extract reports for the healthcare insurance officials which can enable them to analyse and present insights to the mangeorial officials, and to understand the entire Database Design process from scratch resulting into a development of a real world database and data visualization system for the health insurance companies.
 
 Logical Database Design (Entity Relationship Diagram)
+<img width="1091" height="580" alt="image" src="https://github.com/user-attachments/assets/6290ed49-7d1d-4ead-8e1a-50d33d02a93c" />
+
 
 
 Data Visualizations (Exploratory Data Analysis)
+<img width="924" height="458" alt="image" src="https://github.com/user-attachments/assets/35b28339-d6d1-48e5-a0fe-7b30bc3efa15" />
+<img width="699" height="412" alt="image" src="https://github.com/user-attachments/assets/7170fc46-874f-4289-8e5a-6fe31908636c" />
+
 
 
 Queries to get the results
