@@ -103,7 +103,7 @@ The main goal of this project is to:
 ### 1️⃣ Top 20 Members by Approved Claim Amount (View)
 Reports top 20 members with provider details and approved amounts greater than $2200.
 
-```sql
+sql
 USE health_insurance_claims_database;
 
 CREATE VIEW top_20_claim_approved_customers AS
