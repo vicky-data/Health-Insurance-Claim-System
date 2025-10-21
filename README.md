@@ -17,9 +17,10 @@ We designed and implemented a **relational database using MySQL Workbench**, gen
 ## 🎯 Project Goal
 
 The main goal of this project is to:
-- Enable **healthcare insurance officials** to generate analytical reports and insights.
-- Build a **normalized, efficient relational database** for claim management and performance reporting.
-- Understand the **end-to-end database design process**, from conceptual ER modeling to SQL implementation and optimization.
+
+- Enable **healthcare insurance officials** to generate analytical reports and insights.  
+- Build a **normalized, efficient relational database** for claim management and performance reporting.  
+- Understand the **end-to-end database design process**, from conceptual ER modeling to SQL implementation and optimization.  
 - Create a foundation for **data visualization and business intelligence** use cases in healthcare insurance.
 
 ---
@@ -83,6 +84,8 @@ The main goal of this project is to:
 ├── claim_status (VARCHAR)
 └── type (VARCHAR)
 
+pgsql
+Copy code
 
 ---
 
@@ -103,7 +106,7 @@ The main goal of this project is to:
 ### 1️⃣ Top 20 Members by Approved Claim Amount (View)
 Reports top 20 members with provider details and approved amounts greater than $2200.
 
-``` sql
+```sql
 USE health_insurance_claims_database;
 
 CREATE VIEW top_20_claim_approved_customers AS
@@ -127,12 +130,12 @@ WHERE cp.approved_amount > 2200
 ORDER BY cp.approved_amount DESC
 LIMIT 20;
 
-SELECT * FROM top_20_claim_approved_customers; ```
-
-### 2️⃣ Members with Claims in Progress (Stored Procedure)
-
+SELECT * FROM top_20_claim_approved_customers;
+2️⃣ Members with Claims in Progress (Stored Procedure)
 Lists all members whose claim status matches the provided status input.
 
+sql
+Copy code
 USE health_insurance_claims_database;
 
 DELIMITER //
@@ -157,11 +160,11 @@ END //
 DELIMITER ;
 
 CALL get_member_claim_status_data('paid');
-
-### 3️⃣ Members by Address Range (Indexing)
-
+3️⃣ Members by Address Range (Indexing)
 Fetches members with coverage plans and address IDs between 2000 and 5000.
 
+sql
+Copy code
 USE health_insurance_claims_database;
 
 SELECT DISTINCT 
@@ -185,21 +188,16 @@ INNER JOIN member m ON m.member_id = cp.member_id
 WHERE m.address_id BETWEEN 2000 AND 5000;
 
 DROP INDEX member_index ON member;
-
-
-## ⚡ Performance Optimization Techniques
-
+⚡ Performance Optimization Techniques
 This project applies several SQL optimization techniques to improve query performance:
 
-✅ Views: Simplify complex multi-join queries
+✅ Views — Simplify complex multi-join queries
 
-✅ Stored Procedures: Centralize business logic and improve reusability
+✅ Stored Procedures — Centralize business logic and improve reusability
 
-✅ Indexes: Speed up table lookups and filtering operations
+✅ Indexes — Speed up table lookups and filtering operations
 
-
-## 🧠 Learnings & Takeaways
-
+🧠 Learnings & Takeaways
 Deep understanding of healthcare insurance data relationships
 
 Proficiency in MySQL Workbench schema design and normalization (3NF)
@@ -208,9 +206,10 @@ Hands-on experience with views, indexing, and stored procedures
 
 Ability to generate business insights from healthcare claims data
 
-
-## 🧑‍💻 Author
+🧑‍💻 Author
 Vigneshwaran Palanisamy
 Data Analyst | SQL Developer | Healthcare Data Enthusiast
+📧 [your.email@example.com]
+💼 LinkedIn Profile
 
-<p align="center"> ⭐ If you found this project helpful, consider giving it a star! ⭐ </p> 
+<p align="center"> ⭐ If you found this project helpful, consider giving it a star! ⭐ </p> ```
