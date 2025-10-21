@@ -186,7 +186,7 @@ WHERE m.address_id BETWEEN 2000 AND 5000;
 
 DROP INDEX member_index ON member;
 
-### ⚡ Performance Optimization Techniques
+## ⚡ Performance Optimization Techniques
 
 This project applies several SQL optimization techniques to improve query performance:
 
@@ -196,7 +196,7 @@ This project applies several SQL optimization techniques to improve query perfor
 
 ✅ Indexes: Speed up table lookups and filtering operations
 
-### 🧠 Learnings & Takeaways
+## 🧠 Learnings & Takeaways
 
 Deep understanding of healthcare insurance data relationships
 
@@ -206,7 +206,7 @@ Hands-on experience with views, indexing, and stored procedures
 
 Ability to generate business insights from healthcare claims data
 
-### 🧑‍💻 Author
+## 🧑‍💻 Author
 Vigneshwaran Palanisamy
 Data Analyst | SQL Developer | Healthcare Data Enthusiast
 
