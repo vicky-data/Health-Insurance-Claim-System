@@ -142,10 +142,6 @@ The main goal of this project is to:
 ✨ **Design Principle:**  
 This database is **normalized to 3NF**, ensuring minimal redundancy and efficient querying for analytical purposes in healthcare insurance claim management.
 
----
-
-✅ **Pro Tip:**  
-To make this section visually appealing on GitHub, keep the light/dark mode contrast minimal and use emojis (📂, 💰, 🩺, 🧾) to guide the reader’s attention.
 
 ---
 
