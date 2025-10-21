@@ -34,54 +34,118 @@ The main goal of this project is to:
 ---
 
 ## 🗄️ Database Schema
-📂 Database Structure — Health Insurance Claim System
 
-├── Address
-│ ├── address_id (INT, PK)
-│ ├── street_address (VARCHAR)
-│ ├── apartment_no (INT)
-│ ├── city, county, country (VARCHAR)
-│ └── zipcode (INT)
+### 📂 Database Structure — Health Insurance Claim System
 
-├── Provider
-│ ├── provider_id (INT, PK)
-│ ├── provider_first_name, provider_last_name (VARCHAR)
-│ ├── degree, network, practice_name (VARCHAR)
-│ ├── claim_id (INT, FK → Claim)
-│ ├── address_id (INT, FK → Address)
-│ └── gender (VARCHAR)
+---
 
-├── Claim_Payment
-│ ├── claim_payment_id (INT, PK)
-│ ├── billed_amount, approved_amount, copay_amount (VARCHAR)
-│ ├── coinsurance_amount, deductible_amount, net_payment (VARCHAR)
-│ └── claim_id (INT, FK → Claim)
+#### 🏠 **Address**
+| Column | Data Type | Key | Description |
+|:--------|:-----------|:---:|:-------------|
+| `address_id` | INT | PK | Unique ID for each address |
+| `street_address` | VARCHAR(45) |  | Street information |
+| `apartment_no` | INT |  | Apartment or flat number |
+| `city` | VARCHAR(50) |  | City name |
+| `county` | VARCHAR(45) |  | County or district |
+| `country` | VARCHAR(45) |  | Country name |
+| `zipcode` | INT |  | Zip or postal code |
 
-├── Coverage
-│ ├── coverage_id (INT, PK)
-│ ├── member_id (INT, FK → Member)
-│ ├── coverage_name (VARCHAR)
-│ ├── effective_date, term_date (DATE)
+---
 
-├── Member
-│ ├── member_id (INT, PK)
-│ ├── member_first_name, member_last_name (VARCHAR)
-│ ├── address_id (INT, FK → Address)
-│ ├── gender (VARCHAR)
-│ ├── member_dob (DATE)
-│ ├── claim_id (INT, FK → Claim)
-│ └── coverage_id (INT, FK → Coverage)
+#### 🩺 **Provider**
+| Column | Data Type | Key | Description |
+|:--------|:-----------|:---:|:-------------|
+| `provider_id` | INT | PK | Unique provider identifier |
+| `provider_first_name` | VARCHAR(45) |  | Provider’s first name |
+| `provider_last_name` | VARCHAR(45) |  | Provider’s last name |
+| `degree` | VARCHAR(45) |  | Medical qualification |
+| `network` | VARCHAR(45) |  | Insurance network |
+| `practice_name` | VARCHAR(45) |  | Practice or clinic name |
+| `claim_id` | INT | FK → Claim | Associated claim record |
+| `address_id` | INT | FK → Address | Linked address |
+| `gender` | VARCHAR(45) |  | Provider’s gender |
 
-├── Claim
-│ ├── claim_id (INT, PK)
-│ ├── status_id (INT, FK → Status)
-│ ├── date_of_service, received_date (DATE)
-│ └── add_by (VARCHAR)
+---
 
-└── Status
-├── status_id (INT, PK)
-├── claim_status (VARCHAR)
-└── type (VARCHAR)
+#### 💰 **Claim_Payment**
+| Column | Data Type | Key | Description |
+|:--------|:-----------|:---:|:-------------|
+| `claim_payment_id` | INT | PK | Payment record ID |
+| `billed_amount` | VARCHAR(45) |  | Total billed amount |
+| `approved_amount` | VARCHAR(45) |  | Amount approved by insurer |
+| `copay_amount` | VARCHAR(45) |  | Member copayment |
+| `coinsurance_amount` | VARCHAR(45) |  | Coinsurance share |
+| `deductible_amount` | VARCHAR(45) |  | Deductible applied |
+| `net_payment` | VARCHAR(45) |  | Final payable amount |
+| `claim_id` | INT | FK → Claim | Related claim record |
+
+---
+
+#### 📑 **Coverage**
+| Column | Data Type | Key | Description |
+|:--------|:-----------|:---:|:-------------|
+| `coverage_id` | INT | PK | Coverage plan ID |
+| `member_id` | INT | FK → Member | Covered member |
+| `coverage_name` | VARCHAR(45) |  | Plan name |
+| `effective_date` | DATE |  | Start date of coverage |
+| `term_date` | DATE |  | End date of coverage |
+
+---
+
+#### 👨‍👩‍👧 **Member**
+| Column | Data Type | Key | Description |
+|:--------|:-----------|:---:|:-------------|
+| `member_id` | INT | PK | Member unique ID |
+| `member_first_name` | VARCHAR(45) |  | First name |
+| `member_last_name` | VARCHAR(45) |  | Last name |
+| `address_id` | INT | FK → Address | Member address |
+| `gender` | VARCHAR(45) |  | Gender |
+| `member_dob` | DATE |  | Date of birth |
+| `claim_id` | INT | FK → Claim | Associated claim |
+| `coverage_id` | INT | FK → Coverage | Linked coverage |
+
+---
+
+#### 🧾 **Claim**
+| Column | Data Type | Key | Description |
+|:--------|:-----------|:---:|:-------------|
+| `claim_id` | INT | PK | Claim unique ID |
+| `status_id` | INT | FK → Status | Claim status |
+| `date_of_service` | DATE |  | Date of service rendered |
+| `received_date` | DATE |  | Date received by insurer |
+| `add_by` | VARCHAR(45) |  | User who created claim |
+
+---
+
+#### 📊 **Status**
+| Column | Data Type | Key | Description |
+|:--------|:-----------|:---:|:-------------|
+| `status_id` | INT | PK | Status unique ID |
+| `claim_status` | VARCHAR(45) |  | Claim status (e.g., Paid, Denied, Pending) |
+| `type` | VARCHAR(45) |  | Status category |
+
+---
+
+### 🔗 Relationship Summary
+
+| Relationship | Type | Description |
+|:--------------|:------:|:-------------|
+| Address → Provider | 1 → Many | One address can belong to multiple providers |
+| Address → Member | 1 → Many | One address can have multiple members |
+| Member → Claim | 1 → 1 | Each member can have one claim |
+| Claim → Claim_Payment | 1 → 1 | Each claim has one payment record |
+| Claim → Status | 1 → 1 | Each claim has a single status |
+| Member → Coverage | 1 → 1 | Each member has one coverage plan |
+
+---
+
+✨ **Design Principle:**  
+This database is **normalized to 3NF**, ensuring minimal redundancy and efficient querying for analytical purposes in healthcare insurance claim management.
+
+---
+
+✅ **Pro Tip:**  
+To make this section visually appealing on GitHub, keep the light/dark mode contrast minimal and use emojis (📂, 💰, 🩺, 🧾) to guide the reader’s attention.
 
 ---
 
