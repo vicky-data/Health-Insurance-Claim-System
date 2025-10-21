@@ -131,7 +131,7 @@ ORDER BY cp.approved_amount DESC
 LIMIT 20;
 
 SELECT * FROM top_20_claim_approved_customers;
-2️⃣ Members with Claims in Progress (Stored Procedure)
+# 2️⃣ Members with Claims in Progress (Stored Procedure)
 Lists all members whose claim status matches the provided status input.
 
 sql
@@ -160,7 +160,7 @@ END //
 DELIMITER ;
 
 CALL get_member_claim_status_data('paid');
-3️⃣ Members by Address Range (Indexing)
+# 3️⃣ Members by Address Range (Indexing)
 Fetches members with coverage plans and address IDs between 2000 and 5000.
 
 sql
@@ -188,7 +188,9 @@ INNER JOIN member m ON m.member_id = cp.member_id
 WHERE m.address_id BETWEEN 2000 AND 5000;
 
 DROP INDEX member_index ON member;
-⚡ Performance Optimization Techniques
+
+
+# ⚡ Performance Optimization Techniques
 This project applies several SQL optimization techniques to improve query performance:
 
 ✅ Views — Simplify complex multi-join queries
@@ -197,7 +199,7 @@ This project applies several SQL optimization techniques to improve query perfor
 
 ✅ Indexes — Speed up table lookups and filtering operations
 
-🧠 Learnings & Takeaways
+# 🧠 Learnings & Takeaways
 Deep understanding of healthcare insurance data relationships
 
 Proficiency in MySQL Workbench schema design and normalization (3NF)
@@ -206,10 +208,7 @@ Hands-on experience with views, indexing, and stored procedures
 
 Ability to generate business insights from healthcare claims data
 
-🧑‍💻 Author
+# 🧑‍💻 Author
 Vigneshwaran Palanisamy
 Data Analyst | SQL Developer | Healthcare Data Enthusiast
-📧 [your.email@example.com]
-💼 LinkedIn Profile
 
-<p align="center"> ⭐ If you found this project helpful, consider giving it a star! ⭐ </p> ```
