@@ -34,7 +34,6 @@ The main goal of this project is to:
 ---
 
 ## 🗄️ Database Schema
-
 📂 Database Structure — Health Insurance Claim System
 
 ├── Address
@@ -83,9 +82,6 @@ The main goal of this project is to:
 ├── status_id (INT, PK)
 ├── claim_status (VARCHAR)
 └── type (VARCHAR)
-
-pgsql
-Copy code
 
 ---
 
